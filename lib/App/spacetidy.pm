@@ -45,15 +45,59 @@ sub main
   }
   else
   {
-    ...;
+    recurse(path('.'));
   }
 
   return 0;
 }
 
+sub recurse
+{
+  my($root) = @_;
+
+  foreach my $path ($root->children)
+  {
+    next if $path->basename =~ /^\./;
+
+    next if -l $path;
+
+    if(-d $path)
+    {
+      recurse($path);
+      next;
+    }
+
+    if($path->basename =~ /\.(pm|pl|t)$/)
+    {
+      print "$path\n";
+      tidy_file($path);
+    }
+    else
+    {
+      my $fh = $path->openr;
+      my $shebang = <$fh>;
+      close $fh;
+
+      next unless defined $shebang;
+
+      if($shebang =~ m{^#!\S+/perl$})
+      {
+        print "$path\n";
+        tidy_file($path);
+      }
+      elsif($shebang =~ m{^#!/usr/bin/env perl})
+      {
+        print "$path\n";
+        tidy_file($path);
+      }
+    }
+  }
+}
+
 sub tidy_file
 {
   my($path) = @_;
+
   my @lines = do {
     my $fh = $path->openr;
     binmode $fh, ':utf8';
@@ -95,7 +139,9 @@ sub tidy_file
     $line++;
   }
 
+  my $mode = $path->stat->[2];
   $path->spew_utf8( @lines );
+  $path->chmod($mode);
 }
 
 1;
