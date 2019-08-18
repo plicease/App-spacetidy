@@ -1,4 +1,4 @@
-# App::spacetidy [![Build Status](https://secure.travis-ci.org/plicease/App-spacetidy.png)](http://travis-ci.org/plicease/App-spacetidy)
+# App::spacetidy
 
 The wrong perl tidy
 
