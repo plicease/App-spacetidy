@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use lib::findbin '../lib'; # dev-only
+use App::spacetidy;
+
+# PODNAME: spacetidy
+# ABSTRACT: The wrong perl tidy
+# VERSION
+
+exit App::spacetidy->main(@ARGV);
