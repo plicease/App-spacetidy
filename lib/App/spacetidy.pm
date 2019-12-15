@@ -67,7 +67,7 @@ sub recurse
       next;
     }
 
-    if($path->basename =~ /\.(pm|pl|t)$/)
+    if($path->basename =~ /\.(pm|pl|t|PL)$/ || $path->basename =~ /^(alien|cpan)file$/)
     {
       print "$path\n";
       tidy_file($path);
