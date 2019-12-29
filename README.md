@@ -4,8 +4,10 @@ The wrong perl tidy
 
 # SYNOPSIS
 
-    use App::spacetidy;
-    ...
+```perl
+use App::spacetidy;
+...
+```
 
 # DESCRIPTION
 
@@ -14,14 +16,16 @@ minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea co
 in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
 officia deserunt mollit anim id est laborum.
 
-    for(1..10)
-    {
-      say "hello world\n";
-    }
-    
-    # some time later
-    
-    my $foo = Foo->new;
+```perl
+for(1..10)
+{
+  say "hello world\n";
+}
+
+# some time later
+
+my $foo = Foo->new;
+```
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
 minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit

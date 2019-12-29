@@ -63,14 +63,22 @@ sub recurse
 
     if(-d $path)
     {
+      next if $path->basename eq 'blib';
       recurse($path);
       next;
     }
 
-    if($path->basename =~ /\.(pm|pl|t|PL)$/ || $path->basename =~ /^(alien|cpan)file$/)
+    if($path->basename =~ /\.(pm|pl|t|PL|fbx)$/ || $path->basename =~ /^(alien|cpan)file$/)
     {
       print "$path\n";
       tidy_file($path);
+    }
+    elsif($path->basename =~ /\.(xs|c|cxx|cpp|h|rs|go)/
+    ||    $path->basename eq 'dist.ini'
+    ||    $path->basename eq 'perlcriticrc')
+    {
+      print "$path\n";
+      tidy_file($path, 0);
     }
     else
     {
@@ -96,7 +104,9 @@ sub recurse
 
 sub tidy_file
 {
-  my($path) = @_;
+  my($path, $is_perl) = @_;
+
+  $is_perl = 1 unless defined $is_perl;
 
   my @lines = do {
     my $fh = $path->openr;
@@ -108,7 +118,7 @@ sub tidy_file
 
   for my $line (0..$#lines)
   {
-    if($lines[$line] =~ m/^=cut/)
+    if($is_perl && $lines[$line] =~ m/^=cut/)
     {
       if($in_pod)
       {
@@ -119,7 +129,7 @@ sub tidy_file
         die "found =cut outside of POD: $path line $line";
       }
     }
-    elsif($lines[$line] =~ m/^=/)
+    elsif($is_perl && $lines[$line] =~ m/^=/)
     {
       $in_pod = 1;
     }
