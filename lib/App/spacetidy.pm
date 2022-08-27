@@ -73,7 +73,7 @@ sub recurse
       print "$path\n";
       tidy_file($path);
     }
-    elsif($path->basename =~ /\.(xs|c|cxx|cpp|h|rs|go)/
+    elsif($path->basename =~ /\.(xs|c|cxx|cpp|h|rs|go|md)/
     ||    $path->basename eq 'dist.ini'
     ||    $path->basename eq 'perlcriticrc')
     {
