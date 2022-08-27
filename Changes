@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.04      2022-08-27 06:21:23 -0600
   - Tidy mardown files with .md
 
 0.03      2019-12-28 17:34:36 -0700
